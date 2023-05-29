@@ -1,4 +1,10 @@
 #include <iostream>
+#include <math.h>
+
+bool leapY (int year) {
+    if (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) {return false;}
+    else {return true;}
+}
 
 int main() {
     
@@ -7,20 +13,22 @@ int main() {
     int yearM = 0;
     int yearC = 0;
     bool repeat = true;
-    bool leap = false;
 
     while (repeat) {
-    std::cout << "Please input desired four-digit number year: ";
-    std::cin >> year;
 
-    
+        std::cout << "Please input desired four-digit number year: ";
+        std::cin >> year;
+
+        
         while(year<1000)
         {
             std::cout << "Please enter a four-digit number: ";
             std::cin >> year;
         }
 
-        if (year % 4 != 0 || (year % 100 == 0 && year % 400 != 0)) {
+        std::cout << leapY(year) << "\n";
+
+        if (!leapY(year)) {
             
             std::cout << year << " is not a leap year :(\n";
             
@@ -28,13 +36,13 @@ int main() {
             yearM = year;
             yearC = year;
            
-            while((yearP % 4 != 0 || (yearP % 100 == 0 && yearP % 400 != 0)))
+            while(!leapY(yearP))
             {
                 yearP++;
-                //std::cout << yearP << yearM;
+                //std::cout << yearP << yearM;                          debugging numbers
             }
             
-            while(yearM % 4 != 0 || (yearM % 100 == 0 && yearM % 400 != 0))
+            while(!leapY(yearM))
             {
                 yearM--;
             }
@@ -52,11 +60,9 @@ int main() {
 
         else {
             std::cout << year << " is a leap year!\n";
-            leap = true;
         }
 
         std::cout << "Repeat? (Enter 1 if yes): ";
         std::cin >> repeat;
-        leap = false;
     }
 }
